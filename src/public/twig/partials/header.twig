@@ -1,0 +1,26 @@
+
+<header>
+	<h1>Shopping! With Friends!</h1>
+	<p>Shop Together, Laugh Together, Save Together!</p>
+</header>
+
+{% if _SESSION.logged_in %}
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/shop">Shop</a></li>
+			<li><a href="/my_groups">Groups</a></li>
+			<li><a href="/profile">Profile</a></li>
+			<li><button class="sign-out-button">Sign Out</button></li>
+		</ul>
+	</nav>
+{% else %}
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/shop">Shop</a></li>
+			<li><a href="/login">Login</a></li>
+			<li><a href="/signup">Sign Up</a></li>
+		</ul>
+	</nav>
+{% endif %}

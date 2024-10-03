@@ -1,0 +1,61 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}Shop
+{% endblock %}
+{% block customscripts %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const buttons = document.querySelectorAll('.product-item button');
+			buttons.forEach(button => {
+				button.addEventListener('click', function(self) {
+					alert(`Added ${self.target.previousElementSibling.previousElementSibling.previousElementSibling.textContent} to cart`)
+					// add product to cart cookie json data
+					const product = {
+						price: self.target.previousElementSibling.textContent,
+						description: self.target.previousElementSibling.previousElementSibling.textContent,
+						name: self.target.previousElementSibling.previousElementSibling.previousElementSibling.textContent,
+						img: self.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.src
+					};
+					let cart = [];
+					if (document.cookie.includes('cart')) {
+						cart = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('cart')).split('=')[1]);
+					}
+					cart.push(product);
+					document.cookie = `cart=${JSON.stringify(cart)}; path=/`;
+				});
+			});
+		});
+	</script>
+{% endblock %}
+{% block content %}
+	<section class="products">
+		{% if data.products %}
+			{% for product in data.products %}
+				<div class="product-item">
+					<img src="{{ product.img|raw}}" alt="{{ product.name }}">
+					<h2>{{ product.name }}</h2>
+					<p>{{ product.description }}</p>
+					<p class="price">{{ product.price | number_format(2, '.', ',') }} {{ currency }}</p>
+					<button>Add to Cart</button>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>{{ data.error|raw }}</p>
+		{% endif %}
+	</section>
+	{% if data.cart %}
+		<h1>Cart:</h1>
+		<section class="products">
+			{% for product in data.cart %}
+				<div class="product-item">
+					<img src="{{ product.img|raw}}" alt="{{ product.name }}">
+					<h2>{{ product.name }}</h2>
+					<p>{{ product.description }}</p>
+					<p class="price">{{ product.price | number_format(2, '.', ',') }} {{ currency }}</p>
+					<button>Add to Cart</button>
+				</div>
+			{% endfor %}
+		</section>
+	{% endif %}
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}My Groups
+{% endblock %}
+
+
+{% block content %}
+	<div class="button-row">
+		<a href="/add_group" class="button">New Group</a>
+	</div>
+	<div class="groups-container">
+		{% for group in data.groups %}
+			<div class='group'>
+				<h3>{{ group.group_name }}</h3>
+				<a class="button small" href="/group?id={{ group.id }}">View Group</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+
+{# print email and username #}

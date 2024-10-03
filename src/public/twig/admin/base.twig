@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block script %}
+			<script src="/javascript/everywhere.js"></script>
+			<script src="/javascript/admin.js"></script>
+		{% endblock %}
+		{% block page_styles %}
+			<style>
+				body #body-container #content-container {
+					padding-top: 0;
+				}
+				#body-container {
+					padding-left: 5px;
+					padding-bottom: 10px;
+				}
+				table {
+					margin-top: 20px;
+					margin-bottom: 20px;
+					border: 1px solid #999;
+				}
+				table tr:nth-child(even) {
+					background-color: #f5f5f5;
+				}
+				th,
+				td {
+					border: 1px solid #999;
+					padding: 5px;
+				}
+
+				header {
+					width: auto;
+				}
+				button,
+				input[type="submit"],
+				input[type="button"] {
+					background-color: #5faa41;
+					color: white;
+					border: 0;
+					border-radius: 5px;
+				}
+				button:hover,
+				input[type="submit"]:hover,
+				input[type="button"]:hover {
+					background-color: #488F2C;
+				}
+				button.delete {
+					background-color: #c51419;
+				}
+				button.delete:hover {
+					background-color: #b11317;
+				}
+				.scroll-table {
+					max-width: 97%;
+					overflow-y: auto;
+					margin-bottom: 10px;
+				}
+				.errors {
+					color: #3c763d;
+					background-color: #dff0d8;
+					border-color: #d6e9c6;
+				}
+				select:disabled {
+					background: rgba(0, 0, 0, 0);
+					border: none;
+					-webkit-appearance: none;
+					-moz-appearance: none;
+				}
+
+				* {
+					margin-left: 3px;
+				}
+
+				#content-container {
+					padding-left: 15px;
+				}
+
+				table,
+				th,
+				td {
+					border: 1px solid black;
+					border-collapse: collapse;
+				}
+				th,
+				td {
+					padding-left: 5px;
+					padding-right: 5px;
+					max-width: 500px;
+				}
+				input,
+				label {
+					display: block;
+				}
+
+				#navbar {
+					margin-bottom: 10px;
+				}
+
+				.navbar-item {
+					display: inline-block;
+					padding: 10px;
+					border: 1px solid #ccc;
+					border-radius: 5px;
+					margin-right: 5px;
+				}
+			</style>
+		{% endblock %}
+	</head>
+	<body>
+		<div id="navbar">
+			<a class="navbar-item" href="/admin/group">Groups</a>
+			<a class="navbar-item" href="/admin/user">Users</a>
+			<a class="navbar-item" href="/admin/post">Posts</a>
+		</div>
+		{% block body %}
+			<div id="content-container">
+				<h2>{{ title }}</h2>
+				{% for one_custom_message in data.custom_messages  %}
+					<div class="alert-danger">{{ one_custom_message }}</div>
+				{% endfor %}
+				{% block custom_title %}{% endblock %}
+				<div class="scroll-table">
+					<table>
+						<tr>
+							{% for column in form['sorts_array'] %}
+								<th>
+									{{ column['name'] }}
+								</th>
+							{% endfor %}
+
+						</tr>
+						{% for result in data['results'] %}
+							<tr>
+								{% for column, value in result %}
+									<td style="line-break: anywhere">
+										{% block custom_data %}
+											{% if column == 'Body'  %}
+												{{ value|raw }}
+											{% else %}
+												{{ value }}
+											{% endif %}
+										{% endblock %}
+									</td>
+								{% endfor %}
+								{% if result['ID'] %}
+									<td style="line-break: anywhere">
+										<form method="post">
+											<input type="hidden" name="id" value="{{ result['ID'] }}">
+											<input type="hidden" name="action" value="delete">
+											<input type="submit" class="delete" value="Delete">
+										</form>
+									</td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+				<hr>
+			</div>
+		{% endblock %}
+		{% block footer %}
+			{% if form['prev'] is not null %}
+				<a href="?next_range={{ form['prev']|e('url') }}" &sort={{ form['sort']|e('url') }} {% if form['sort_order'] %} &sort_order={{ form['sort_order'] }} {% endif %} & {{ form['curr_filters_string']|raw }}>Prev</a>
+			{% endif %}
+
+			{% if form['next'] is not null %}
+				<a href="?next_range={{ form['next']|e('url') }}" &sort={{ form['sort']|e('url') }} {% if form['sort_order'] %} &sort_order={{ form['sort_order'] }} {% endif %} & {{ form['curr_filters_string']|raw }}>Next</a>
+			{% endif %}
+			{% block extra_bottom_content %}{% endblock %}
+		{% endblock %}
+	</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}Login
+{% endblock %}
+{% block content %}
+
+	<section class="login-form">
+		<h1>{{ login_title }}</h1>
+
+		{% if data.error %}
+			<div class="error-message">
+				<p>Wrong username or password</p>
+			</div>
+		{% endif %}
+
+		<form action="signup" method="post">
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" required autofocus>
+			</div>
+
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" required autofocus>
+			</div>
+
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" required>
+			</div>
+
+			<div class="form-group">
+				<button type="submit" class="btn-main">Log In</button>
+			</div>
+		</form>
+
+		<div class="login-options">
+			<p>Already have an account? <a href="/login">Login</a> now.</p>
+		</div>
+	</section>
+
+{% endblock %}

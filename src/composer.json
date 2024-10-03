@@ -1,0 +1,11 @@
+{
+    "require": {
+        "twig/twig": "^3.0",
+        "robmorgan/phinx": "^0.15.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "AS\\": "private/library/"
+        }
+    }
+}

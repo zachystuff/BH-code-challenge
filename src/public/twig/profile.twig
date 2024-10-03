@@ -1,0 +1,28 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}Profile
+{% endblock %}
+
+
+{% block content %}
+	<div class="profile-container">
+		<div class="profile-header-container">
+			{% if data.error %}
+				<p class="error-base">Can't update</p>
+			{% elseif data.success %}
+				<p class="success-base">Updated</p>
+			{% endif %}
+			<form class="base-form" action="/profile" method="POST">
+				<label class="base-label" for="username">Username</label>
+				<input class="base-input" type="text" name="username" id="username" value="{{ data.profile.username }}">
+				<label class="base-label" for="email">Email</label>
+				<input class="base-input" type="email" name="email" id="email" value="{{ data.profile.email }}">
+
+				<input class="button" type="submit" value="Update">
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+
+{# print email and username #}

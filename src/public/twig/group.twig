@@ -1,0 +1,56 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}Group
+{% endblock %}
+{% block content %}
+	<h1>Welcome to the
+		{{ data.group_name }}</h1>
+
+	{% if data.is_admin %}
+		You are an Admin, you can make changes here
+		<a href="/group_settings?id={{ data.group_id }}">Edit Group</a>
+	{% endif %}
+
+	<div class='base-form'>
+		<h2>New Post</h2>
+		<button class="button" id="make-bold">Add Bold</button>
+		<br><br>
+		<form action="/group?id={{data.group_id}}" method="post">
+			<input type="hidden" name="group_id" value="{{ data.group_id }}">
+			<input type="hidden" name="user_id" value="{{ _SESSION.user_id }}">
+			<input type="hidden" name="created_at" value=''>
+			<input type="text" name="title" placeholder="Title" class="base-input">
+			<textarea name="body" placeholder="Body" class="base-input"></textarea>
+			<button class="button" type="submit" value="Post">Submit</button>
+		</form>
+	</div>
+	{% for post in data.posts %}
+		<div class="post">
+			<h2>{{ post.title }}</h2>
+			<p>{{ post.body|striptags("<b>")|raw }}</p>
+			<p>Posted by
+				{{ post.username }}
+				on
+				{{ post.created_at }}</p>
+		</div>
+	{% endfor %}
+{% endblock %}
+
+{% block customscripts %}
+	<script>
+		// In vanilla JS add an event listener to the button and add bold to the text area <b></b>
+document.addEventListener('DOMContentLoaded', (event) => {
+var button = document.querySelector('#make-bold');
+if (button) {
+button.addEventListener('click', makeBold);
+}
+});
+
+function makeBold() {
+var textarea = document.querySelector('textarea');
+if (textarea) {
+textarea.value += '<b></b>';
+}
+}
+	</script>
+{% endblock %}

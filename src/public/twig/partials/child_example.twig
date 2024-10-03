@@ -1,0 +1,27 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+    {# Add extra header tags here (Not javascript or CSS)  Remove parent() if you don't want default header from base.twig#}
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    {# Add extra script tags here. Remove parent() if you don't want default script from base.twig #}
+{% endblock %}
+{% block css %}
+    {{ parent() }}
+    {# Add extra css tags here. Remove parent() if you don't want default css from base.twig #}
+{% endblock %}
+{% block content %}
+    {# This doesn't have parent tag (mainly because we don't have anything on base.twig) however we can override the block if we don't add parent #}
+    <h1>Index</h1>
+    <p class="important">
+        Welcome on my awesome homepage.
+    </p>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+    {# Remove parent() if you don't want default footer from base.twig #}
+{% endblock %}

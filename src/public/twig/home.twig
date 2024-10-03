@@ -1,0 +1,67 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}Shop
+{% endblock %}
+{% block content %}
+    <div class="welcome-container">
+        <section class="intro">
+            <p>Welcome to <strong>Shopping! With Friends!</strong>, where shopping isn’t just about buying things—it’s about sharing the experience with your friends, even when you’re miles apart. We’re bringing the fun of a mall outing to the comfort of your home, making online shopping more social, engaging, and, of course, more fun!</p>
+        </section>
+
+        <section class="why-shop-together">
+            <h2>Why Shop Alone When You Can Shop Together?</h2>
+            <p>Whether you're hunting for the latest fashion trends, searching for that perfect gift, or simply exploring new gadgets, <strong>Shopping! With Friends!</strong> lets you do it all <strong>with your friends by your side</strong>. Create or join shopping groups, share ideas in real-time, and enjoy an experience that feels just like a day out at the mall.</p>
+        </section>
+
+        <section class="two-cols">
+            <section class="how-it-works">
+                <h2>How It Works</h2>
+                <ol>
+                    <li><strong>Create a Group</strong> – Start a shopping group with your friends for any occasion—holidays, birthdays, or just for fun!</li>
+                    <li><strong>Browse Together</strong> – Explore products with live updates from your group. See what your friends are adding to their carts, what they love, and what they recommend.</li>
+                    <li><strong>Vote and Share Opinions</strong> – Can’t decide between two outfits? Let your friends vote and give you instant feedback.</li>
+                    <li><strong>Discover Group Discounts</strong> – The more you shop together, the more you save! Enjoy exclusive group discounts and special offers just for you and your friends.</li>
+                </ol>
+            </section>
+
+            <section class="why-you-love">
+                <h2>Why You’ll Love It</h2>
+                <ul>
+                    <li><strong>Real-Time Interaction</strong>: Share the thrill of finding that perfect item with your friends in real time.</li>
+                    <li><strong>Personalized Shopping</strong>: Get tailored recommendations based on your preferences and your group’s activities.</li>
+                    <li><strong>Shared Wishlists</strong>: Easily create, manage, and share wishlists with your friends. Perfect for birthdays, holidays, or just because!</li>
+                </ul>
+            </section>
+        </section>
+
+        <section class="coming-soon">
+            <h2>Coming Soon: More Fun, More Features!</h2>
+            <p>We’re hard at work building even more exciting features to enhance your shopping experience. Soon, you’ll be able to create themed shopping events, chat directly with your friends while browsing, and even earn group rewards.</p>
+        </section>
+
+        <section class="join-us">
+            <h2>Join the Shopping Revolution!</h2>
+            <p>Shopping doesn’t have to be a solo activity anymore. Whether you’re hanging out with friends from across town or across the world, <strong>Shopping! With Friends!</strong> brings you closer together through the joy of discovering, sharing, and buying—together.</p>
+        </section>
+
+        <section class="welcome-footer">
+            <h2>Ready to Shop?</h2>
+            <p>Create your group, invite your friends, and start shopping together today!</p>
+        </section>
+    </div>
+
+    {% if data.cart %}
+        <h2>Products in Your Cart:</h2>
+        <section class="products">
+            {% for product in data.cart %}
+                <div class="product-item">
+                    <img src="{{ product.img|raw}}" alt="{{ product.name }}">
+                    <h2>{{ product.name }}</h2>
+                    <p>{{ product.description }}</p>
+                    <p class="price">{{ product.price | number_format(2, '.', ',') }} {{ currency }}</p>
+                    <button>Add to Cart</button>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
+{% endblock %}

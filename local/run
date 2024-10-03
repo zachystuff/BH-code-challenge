@@ -1,0 +1,4 @@
+#!/bin/bash
+#If failing on Linux check this to avoid needing sudo https://docs.docker.com/engine/install/linux-postinstall/
+#If it's still failing check this https://stackoverflow.com/questions/64662372/docker-compose-up-error-while-fetching-server-api-version-connection-aborte 
+docker compose up

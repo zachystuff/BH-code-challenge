@@ -1,0 +1,24 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}Find Groups
+{% endblock %}
+
+{% block content %}
+	{% if data.groups %}
+		<div class="groups-container">
+			{% for group in data.groups %}
+				<div class='group'>
+					<strong>Group: {{ group.group_name }}</strong>
+					<br>
+					<form action="/find_groups" method="post">
+						<input type="hidden" name="group_id" value="{{ group.id }}">
+						<input type="hidden" name="action" value="join_group">
+						<input class="small button" type="submit" value="Join Group">
+					</form>
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<p>There are no joinable groups currently</p>
+	{% endif %}
+{% endblock %}

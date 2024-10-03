@@ -1,0 +1,48 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}Group
+{% endblock %}
+{% block content %}
+	<h2>Group Settings for
+		{{ data.group_name }}</h2>
+	<div class="base-form">
+		<form action="/group_settings?id={{data.group_id}}" method="post">
+			<input type="hidden" name="group_id" value="{{ data.group_id }}">
+			<input type="hidden" name="action" value="update_group_details">
+			<label class="base-label" for="group_name">Group Name</label>
+			<input class="base-input" type="text" name="group_name" value="{{ data.group_name }}">
+			<label class="base-label" for="is_joinable">Is Joinable</label>
+			<input type="checkbox" name="is_joinable" {% if data.is_joinable %} checked {% endif %}>
+			<br><br>
+			<button class="button" type="submit" value="Save">Save</button>
+		</form>
+	</div>
+
+	<h2>Group Members</h2>
+	<div class="group-member-forms">
+	<div class="base-form">
+	<form action="/group_settings?id={{data.group_id}}" method="post">
+		<input type="hidden" name="group_id" value="{{ data.group_id }}">
+		<input type="hidden" name="action" value="remove_group_member">
+		<label class="base-label" for="group_member">Remove Member</label>
+		<select class="base-input" name="group_member">
+			{% for user in data.group_members %}
+				<option value="{{ user.user_id }}">{{ user.username }}</option>
+			{% endfor %}
+		</select>
+		<button class="button" type="submit" value="remove">Remove</button>
+	</form>
+	</div>
+
+<div class="base-form">
+	<form action="/group_settings?id={{data.group_id}}" method="post">
+		<input type="hidden" name="group_id" value="{{ data.group_id }}">
+		<input type="hidden" name="action" value="add_group_member">
+		<label class="base-label" for="username">Add Member by Username</label>
+		<input class="base-input" type="text" name="username">
+		<button class="button" type="submit" value="add">Add</button>
+	</form>
+	</div>
+	</div>
+
+{% endblock %}

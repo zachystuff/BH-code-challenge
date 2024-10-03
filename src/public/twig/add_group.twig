@@ -1,0 +1,25 @@
+{% extends "partials/base.twig" %}
+
+{% block title %}New Group
+{% endblock %}
+
+
+{% block content %}
+	<h1 class="new-group-title" style="text-align:center">Create a new group</h1>
+	{% if data.error %}
+		<p class="error-base">{{ data.error }}</p>
+	{% endif %}
+	<div class="new-group-container">
+
+		<form method="POST" action="#" class="new-group-form">
+			<label class="base-label" for='new-group-name'>Group Name</label>
+			<input class="base-input" name="new-group-name" required>
+			<label class="base-label" for="new-group-code">Group Code (Code required to make a group)</label>
+			<input class="base-input" name="new-group-code" required>
+			<input class="button" type="submit">
+		</form>
+	</div>
+{% endblock %}
+
+
+{# print email and username #}
